@@ -11,13 +11,13 @@ function EmployeeTable(props) {
   }, [props.value]);
 
   const PopulateEmployee = () => {
-    const locatStoredEmp = JSON.parse(localStorage.getItem(Save_Employee_From));
-    if (locatStoredEmp) {
-      getEmployeed(locatStoredEmp);
+    const saveEmp = JSON.parse(localStorage.getItem(Save_Employee_From));
+    if (saveEmp) {
+      getEmployeed(saveEmp);
     }
   };
 
-  const deleteEmployee = (id) => {
+  const handledeleteEmployee = (id) => {
     if (window.confirm("Are you sure? Click OK to delete this record.")) {
       var newEmployeeList = employee.filter((emp) => emp.id != id);
       getEmployeed(newEmployeeList);
@@ -28,7 +28,6 @@ function EmployeeTable(props) {
   return (
     <>
       <div className="container">
-        {/* { props.value == '' ? <h2 className="primary-heading">Employee List</h2> : ''} */}
         <h2 className="primary-heading">Employee List</h2>
         <table className="table table-bordered">
           <thead>
@@ -49,7 +48,7 @@ function EmployeeTable(props) {
                       className="btn btn-danger"
                       type="button"
                       value="x"
-                      onClick={() => deleteEmployee(item.id)}
+                      onClick={() => handledeleteEmployee(item.id)}
                     ></input>
                   </td>
                 </tr>

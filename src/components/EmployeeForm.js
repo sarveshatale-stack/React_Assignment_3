@@ -12,7 +12,7 @@ function EmployeeForm(props) {
 
   useEffect(() => {}, [employee]);
 
-  const Insertemployee = (e) => {
+  const handleInsertemployee = (e) => {
     if (!employee.name || !employee.job) {
       alert("Please enter employee name and job");
       return;
@@ -20,17 +20,12 @@ function EmployeeForm(props) {
     if (employee.id === 0) {
       let emp = { ...employee }; // copying the old datas array
 
-      const locatStoredEmp = JSON.parse(
-        localStorage.getItem(Save_Employee_From)
-      );
-      if (locatStoredEmp) {
-        var newId = getMax(locatStoredEmp, "id") + 1;
+      const saveEmp = JSON.parse(localStorage.getItem(Save_Employee_From));
+      if (saveEmp) {
+        var newId = getMax(saveEmp, "id") + 1;
         emp.id = newId;
-        locatStoredEmp.push(emp);
-        localStorage.setItem(
-          Save_Employee_From,
-          JSON.stringify(locatStoredEmp)
-        );
+        saveEmp.push(emp);
+        localStorage.setItem(Save_Employee_From, JSON.stringify(saveEmp));
       } else {
         emp.id = 1;
         localStorage.setItem(Save_Employee_From, JSON.stringify([emp]));
@@ -62,7 +57,7 @@ function EmployeeForm(props) {
         {<EmployeeTable value={flag}></EmployeeTable>}
         <hr />
         <h2 className="primary-heading">Add Employee</h2>
-        <form onSubmit={Insertemployee}></form>
+        <form onSubmit={handleInsertemployee}></form>
         <div className="form-row">
           <div className="col-md-3"></div>
           <div className="form-group col-md-3">
@@ -109,7 +104,7 @@ function EmployeeForm(props) {
               className="btn btn-success"
               type="submit"
               value="Submit"
-              onClick={Insertemployee}
+              onClick={handleInsertemployee}
             ></input>
           </div>
           <div className="col-md-3"></div>
